@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Brennen\\source\\repos\\DogGo\\DogGo\\DogGo.csproj": {}
+    "C:\\Users\\Brennen\\workspace\\DogGo\\DogGo\\DogGo\\DogGo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Brennen\\source\\repos\\DogGo\\DogGo\\DogGo.csproj": {
+    "C:\\Users\\Brennen\\workspace\\DogGo\\DogGo\\DogGo\\DogGo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brennen\\source\\repos\\DogGo\\DogGo\\DogGo.csproj",
+        "projectUniqueName": "C:\\Users\\Brennen\\workspace\\DogGo\\DogGo\\DogGo\\DogGo.csproj",
         "projectName": "DogGo",
-        "projectPath": "C:\\Users\\Brennen\\source\\repos\\DogGo\\DogGo\\DogGo.csproj",
+        "projectPath": "C:\\Users\\Brennen\\workspace\\DogGo\\DogGo\\DogGo\\DogGo.csproj",
         "packagesPath": "C:\\Users\\Brennen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Brennen\\source\\repos\\DogGo\\DogGo\\obj\\",
+        "outputPath": "C:\\Users\\Brennen\\workspace\\DogGo\\DogGo\\DogGo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Brennen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.3, )"
