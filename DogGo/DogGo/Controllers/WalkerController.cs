@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DogGo.Models;
+using DogGo.Models.ViewModel;
+using DogGo.Reopsitories;
 using DogGo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,19 @@ namespace DogGo.Controllers
     public class WalkerController : Controller
     {
         private readonly WalkerRepository _walkerRepo;
+        private readonly WalkRepository _walkRepo;
+        private readonly DogRepository _dogRepo;
+        private readonly OwnerRepository _ownerRepo;
+        private readonly NeighborhoodRepository _neighborhoodRepo;
 
         // The constructor accepts an IConfiguration object as a parameter. This class comes from the ASP.NET framework and is useful for retrieving things out of the appsettings.json file like connection strings.
         public WalkerController(IConfiguration config)
         {
             _walkerRepo = new WalkerRepository(config);
+            _walkRepo = new WalkRepository(config);
+            _dogRepo = new DogRepository(config);
+            _ownerRepo = new OwnerRepository(config);
+            _neighborhoodRepo = new NeighborhoodRepository(config);
         }
         // GET: WalkerController
         public ActionResult Index()
@@ -33,13 +43,20 @@ namespace DogGo.Controllers
        public ActionResult Details(int id)
         {
             Walker walker = _walkerRepo.GetWalkerById(id);
+            Owner owner = _ownerRepo.GetOwnerById(id);
+            Neighborhood neighborhood = _neighborhoodRepo.GetNeighborhoodById(walker.NeighborhoodId);
+            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
+            List<Walk> walks = _walkRepo.GetWalkByWalkerId(walker.Id);
 
-            if (walker == null)
+            WalkerDetailsViewModel vm = new WalkerDetailsViewModel()
             {
-                return NotFound();
-            }
-
-            return View(walker);
+                Owner = owner,
+                Dogs = dogs,
+                Walker = walker,
+                Walk = walks,
+                Neighborhood = neighborhood
+            };
+            return View(vm);
         }
 
         // GET: WalkerController/Create
