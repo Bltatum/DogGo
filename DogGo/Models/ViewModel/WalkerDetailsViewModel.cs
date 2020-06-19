@@ -16,5 +16,19 @@ namespace DogGo.Models.ViewModel
         public Owner Owner { get; set; }
 
         public List<Dog> Dogs { get; set; }
+
+        public int TotalWalkTime()
+        {
+            if(Walk != null)
+            { 
+            int totalTime = 0;
+            Walk.ForEach(w => totalTime += w.Duration);
+            return totalTime / 60;
+            
+            } else
+            {
+                return 0;
+            }
+        }
     }
 }

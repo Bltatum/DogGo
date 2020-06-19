@@ -29,43 +29,41 @@
             <h1 class="text-left">Recent Walks</h1>
 
             <div class="row">
-               
-                @foreach (Walk walk in Model.Walk)
+                @if (Model.Walk != null)
                 {
-                    <div class="card m-4" style="width: 18rem;">
-   
-                        <div class="card-body">
-                            <div>
-                                <label class="font-weight-bold">Date:</label>
-                                <span>@walk.Date.</span>
-                            </div>
-                            @*<div>
-                                <label class="font-weight-bold">Client:</label>
-                                <span>@walk.</span>
-                            </div>*@
-                            <div>
-                                <label class="font-weight-bold">Duration:</label>
-                                <p>@walk.Duration</p>
+
+                    @foreach (Walk walk in Model.Walk)
+                    {
+                        <div class="card m-4" style="width: 18rem;">
+
+                            <div class="card-body">
+                                <div>
+                                    <label class="font-weight-bold">Date:</label>
+                                    <span>@walk.Date.ToShortDateString()</span>
+                                </div>
+                                @*<div>
+                            <label class="font-weight-bold">Client:</label>
+                            <span>@walk.</span>
+                        </div>*@
+                                <div>
+                                    <label class="font-weight-bold">Duration:  </label>
+                                    <span> @walk.TotalDuration() min </span>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+
+
                 }
+                else
+                {
+                    <div><h3>No Walks Yet</h3></div>
+                }
+
 
             </div>
         </section>
-
-        <section class="col-lg-4 col-md-8 container mt-5">
-            <h1>Total Walk Time</h1>
-
-            @*<ul class="list-group mt-4">
-                @foreach (Walk walk in Model.Walk)
-                {
-                    <li class="list-group-item disabled" aria-disabled="true">
-    
-                        <span class="font-weight-bold ml-4">@walker.Name</span>
-                    </li>
-                }
-            </ul>*@
-        </section>
+       <aside><h3>Total Walk Time:  @Model.TotalWalkTime() min </h3></aside>
     </div>
 </div>

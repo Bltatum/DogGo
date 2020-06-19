@@ -45,16 +45,17 @@ namespace DogGo.Controllers
             Walker walker = _walkerRepo.GetWalkerById(id);
             Owner owner = _ownerRepo.GetOwnerById(id);
             Neighborhood neighborhood = _neighborhoodRepo.GetNeighborhoodById(walker.NeighborhoodId);
-            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
             List<Walk> walks = _walkRepo.GetWalkByWalkerId(walker.Id);
+            //List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
+          
 
             WalkerDetailsViewModel vm = new WalkerDetailsViewModel()
             {
                 Owner = owner,
-                Dogs = dogs,
                 Walker = walker,
                 Walk = walks,
                 Neighborhood = neighborhood
+               // Dogs = dogs,
             };
             return View(vm);
         }
