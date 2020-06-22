@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DogGo.Models;
 using DogGo.Models.ViewModel;
@@ -33,29 +35,34 @@ namespace DogGo.Controllers
         // GET: WalkerController
         public ActionResult Index()
         {
+            try
+            {
+                int ownerId = GetCurrentUserId();
+                Owner owner = _ownerRepo.GetOwnerById(ownerId);
+                List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(owner.NeighborhoodId);
+               
 
-            List<Walker> walkers = _walkerRepo.GetAllWalkers();
-
-            return View(walkers);
+                return View(walkers);
+            } catch
+            {
+                List<Walker> walkers = _walkerRepo.GetAllWalkers();
+             
+                return View(walkers);
+            }
         }
 
         // GET: WalkerController/Details/5
        public ActionResult Details(int id)
         {
             Walker walker = _walkerRepo.GetWalkerById(id);
-            Owner owner = _ownerRepo.GetOwnerById(id);
+            List<Walk> walks = _walkRepo.GetWalksByWalkerId(id);
             Neighborhood neighborhood = _neighborhoodRepo.GetNeighborhoodById(walker.NeighborhoodId);
-            List<Walk> walks = _walkRepo.GetWalkByWalkerId(walker.Id);
-            //List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
-          
-
+        
             WalkerDetailsViewModel vm = new WalkerDetailsViewModel()
             {
-                Owner = owner,
                 Walker = walker,
                 Walk = walks,
                 Neighborhood = neighborhood
-               // Dogs = dogs,
             };
             return View(vm);
         }
@@ -121,6 +128,12 @@ namespace DogGo.Controllers
             {
                 return View();
             }
+        }
+
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
         }
     }
 }

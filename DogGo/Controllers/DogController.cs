@@ -69,11 +69,13 @@ namespace DogGo.Controllers
         }
 
         // GET: DogController/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
+            int ownerId = GetCurrentUserId();
             Dog dog = _dogRepo.GetDogById(id);
 
-            if (dog == null)
+            if (dog.OwnerId != ownerId)
             {
                 return NotFound();
             }
@@ -84,39 +86,50 @@ namespace DogGo.Controllers
         // POST: DogController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(int id, Dog dog)
         {
-            try
+            int ownerId = GetCurrentUserId();
+            if(dog.OwnerId == ownerId)
             {
                 _dogRepo.UpdateDog(dog);
-
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            else
             {
                 return View(dog);
             }
         }
-
+        [Authorize]
         // GET: DogController/Delete/5
         public ActionResult Delete(int id)
         {
+            int ownerId = GetCurrentUserId();
             Dog dog = _dogRepo.GetDogById(id);
+            if(dog.OwnerId != ownerId)
+            {
+                return NotFound();
+            }
+            else
+            { 
             return View(dog);
+            }
         }
 
         // POST: DogController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+       
         public ActionResult Delete(int id, Dog dog)
         {
-            try
+            int ownerId = GetCurrentUserId();
+            if(dog.OwnerId == ownerId)
             {
                 _dogRepo.DeleteDog(id);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            else
             {
                 return View(dog);
             }

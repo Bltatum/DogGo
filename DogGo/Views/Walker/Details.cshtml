@@ -41,10 +41,10 @@
                                     <label class="font-weight-bold">Date:</label>
                                     <span>@walk.Date.ToShortDateString()</span>
                                 </div>
-                                @*<div>
+                                <div>
                             <label class="font-weight-bold">Client:</label>
-                            <span>@walk.</span>
-                        </div>*@
+                            <span>@walk.Owner.Name</span>
+                        </div>
                                 <div>
                                     <label class="font-weight-bold">Duration:  </label>
                                     <span> @walk.TotalDuration() min </span>
@@ -53,17 +53,19 @@
                             </div>
                         </div>
                     }
-
-
                 }
-                else
+                  else
                 {
-                    <div><h3>No Walks Yet</h3></div>
+                    <div>
+                         <h3>No Walks Yet</h3>
+                    </div>
+                    
                 }
-
 
             </div>
         </section>
        <aside><h3>Total Walk Time:  @Model.TotalWalkTime() min </h3></aside>
     </div>
 </div>
+
+

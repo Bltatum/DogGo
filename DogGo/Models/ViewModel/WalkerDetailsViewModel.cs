@@ -13,10 +13,6 @@ namespace DogGo.Models.ViewModel
 
         public List<Walk> Walk { get; set; }
 
-        public Owner Owner { get; set; }
-
-        public List<Dog> Dogs { get; set; }
-
         public int TotalWalkTime()
         {
             if(Walk != null)
